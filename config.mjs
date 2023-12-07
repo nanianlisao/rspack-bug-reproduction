@@ -29,7 +29,7 @@ const config = {
       new webpack.DefinePlugin({
         title: JSON.stringify("custom title"),
       }),
-  ],
+  ].filter(Boolean),
   output: {
     clean: true,
     path: isRunningWebpack
