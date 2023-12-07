@@ -1,9 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Webpack App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"><script defer src="main.js"></script></head>
-  <body>
-  </body>
-</html>
+Html Webpack Plugin:
+<pre>
+  ReferenceError: title is not defined
+  
+  - document.ejs:10 
+    /Users/10034198/git/mine/origin/mygit/rspack-bug-reproduction/src/document.ejs:10:101
+  
+  - document.ejs:12 __webpack_modules__../node_modules/.pnpm/html-webpack-plugin@5.5.3_webpack@5.89.0/node_modules/html-webpack-plugin/lib/loader.js!./src/document.ejs.module.exports
+    /Users/10034198/git/mine/origin/mygit/rspack-bug-reproduction/src/document.ejs:12:10
+  
+  - index.js:499 
+    [rspack-bug-reproduction]/[html-webpack-plugin@5.5.3_webpack@5.89.0]/[html-webpack-plugin]/index.js:499:16
+  
+  - async Promise.all
+  
+</pre>

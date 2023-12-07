@@ -4,6 +4,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isRunningWebpack = !!process.env.WEBPACK;
+import webpack from "webpack";
 const isRunningRspack = !!process.env.RSPACK;
 if (!isRunningRspack && !isRunningWebpack) {
   throw new Error("Unknown bundler");
@@ -18,7 +19,17 @@ const config = {
   entry: {
     main: "./src/index",
   },
-  plugins: [new HtmlWebpackPlugin()],
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/document.ejs",
+    }),
+
+    isRunningWebpack &&
+      new webpack.DefinePlugin({
+        title: JSON.stringify("custom title"),
+      }),
+  ],
   output: {
     clean: true,
     path: isRunningWebpack
@@ -30,5 +41,13 @@ const config = {
     css: true,
   },
 };
+
+if (isRunningRspack) {
+  config.builtins = {
+    define: {
+      title: JSON.stringify("custom title"),
+    },
+  };
+}
 
 export default config;

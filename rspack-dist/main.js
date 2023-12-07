@@ -1,7 +1,7 @@
 (function() {
 var __webpack_modules__ = {
 "./src/index.js": (function (__unused_webpack_module, exports, __webpack_require__) {
-__webpack_require__.el(/* ./render */"./src/render.js").then(__webpack_require__.bind(__webpack_require__, /* ./render */"./src/render.js")).then((exports)=>{
+__webpack_require__.el("./src/index.js@0:18").then(__webpack_require__.bind(__webpack_require__, /*! ./render */"./src/render.js")).then((exports)=>{
     exports.render();
 });
 }),
@@ -27,20 +27,15 @@ function __webpack_require__(moduleId) {
 }
 // expose the modules object (__webpack_modules__)
  __webpack_require__.m = __webpack_modules__;
-// webpack/runtime/load_chunk_with_module
+// webpack/runtime/load_chunk_with_block
 !function() {
-var map = {"./src/render.js": ["src_render_js",],};
+var map = {"./src/index.js@0:18": ["src_render_js"]};
 
 __webpack_require__.el = function(module) {
-  var chunkId = map[module];
-  if (chunkId === undefined) {
-      return Promise.resolve();
-  }
-  if (chunkId.length > 1) {
-    return Promise.all(chunkId.map(__webpack_require__.e));
-  } else {
-    return __webpack_require__.e(chunkId[0]);
-  };
+  var chunkIds = map[module];
+  if (chunkIds === undefined) return Promise.resolve();
+  if (chunkIds.length > 1) return Promise.all(chunkIds.map(__webpack_require__.e));
+  return __webpack_require__.e(chunkIds[0]);
 }
 
 }();
@@ -105,7 +100,7 @@ __webpack_require__.l = function (url, done, key, chunkId) {
 	if (!script) {
 		needAttach = true;
 		script = document.createElement('script');
-
+		
 		script.charset = 'utf-8';
 		script.timeout = 120;
 		// script.setAttribute("data-webpack", dataWebpackPrefix + key);
@@ -430,6 +425,7 @@ chunkLoadingGlobal.push = webpackJsonpCallback.bind(
               }
         }
       }
+    
     // When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration",
     // or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.',
     if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
