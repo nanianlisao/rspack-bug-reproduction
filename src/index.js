@@ -1,3 +1,2 @@
-import('./render').then(exports => {
-    exports.render()
-})
+import "antd/dist/antd.css";
+import "./render.css";

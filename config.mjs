@@ -1,6 +1,7 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import rspack from "@rspack/core";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isRunningWebpack = !!process.env.WEBPACK;
@@ -10,44 +11,42 @@ if (!isRunningRspack && !isRunningWebpack) {
   throw new Error("Unknown bundler");
 }
 
+const outDir = isRunningWebpack
+  ? path.resolve(__dirname, "webpack-dist")
+  : path.resolve(__dirname, "rspack-dist");
+
 /**
  * @type {import('webpack').Configuration | import('@rspack/cli').Configuration}
  */
 const config = {
-  mode: "development",
-  devtool: false,
   entry: {
     main: "./src/index",
   },
-
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/document.ejs",
     }),
-
-    isRunningWebpack &&
-      new webpack.DefinePlugin({
-        title: JSON.stringify("custom title"),
-      }),
-  ].filter(Boolean),
+  ],
+  optimization: {},
   output: {
     clean: true,
-    path: isRunningWebpack
-      ? path.resolve(__dirname, "webpack-dist")
-      : path.resolve(__dirname, "rspack-dist"),
+    path: outDir,
     filename: "[name].js",
   },
   experiments: {
-    css: true,
+    css: false,
+    ...(isRunningRspack && {
+      rspackFuture: { disableTransformByDefault: true, newResolver: true },
+    }),
   },
 };
-
-if (isRunningRspack) {
-  config.builtins = {
-    define: {
-      title: JSON.stringify("custom title"),
-    },
-  };
-}
 
 export default config;
